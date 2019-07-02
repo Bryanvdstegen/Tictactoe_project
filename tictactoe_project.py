@@ -62,3 +62,25 @@ def initBoard(ttt):
                 # update the display
                 showBoard (ttt, board)
     
+# Configuring mouse clicks
+# X will go first...
+
+XO = "X"
+
+# declare an empty grid
+grid =  [ [ None, None, None ],
+          [ None, None, None ],
+          [ None, None, None ] ]
+
+while (running==1):
+
+    for event in pygame.event.get():
+
+        if event.type is QUIT:
+            running = 0
+
+        elif event.type is MOUSEBUTTONDOWN:
+            clickBoard(board)
+
+        #update the display
+            showBoard (ttt, board)
