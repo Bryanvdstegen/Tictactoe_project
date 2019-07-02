@@ -9,8 +9,14 @@ pygame.init()
 ttt = pygame.display.set_mode((300,325))
 pygame.display.set_caption = ('Tic-Tac-Toe')
 
+screenWidth = 300
+consoleHeight = 25
+screenHeight = screenWidth + consoleHeight
 
 # Loop until user quits the game
+
+# create the game board
+board = initBoard (ttt)
 
 running = 1
 while (running==1):
@@ -32,12 +38,13 @@ def initBoard(ttt):
 
     # draw grid lines
 
-    # vertical lines
+    # draw vertical lines
     pygame.draw.line (background, (0,0,0), (100,0), (100,300), 2) # background = surface variable, (000 = color, black), start and end points
     pygame.draw.line (background, (0,0,0), (200,0), (200,300), 2)
 
-    # horizontal lines
+    # draw horizontal lines
     pygame.draw.line (background, (0,0,0), (0,100), (300,100), 2)
     pygame.draw.line (background, (0,0,0), (0,200), (300,200), 2)
 
     return background # is all back at this point
+
