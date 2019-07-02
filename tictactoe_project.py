@@ -9,11 +9,7 @@ pygame.init()
 ttt = pygame.display.set_mode((300,325))
 pygame.display.set_caption = ('Tic-Tac-Toe')
 
-screenWidth = 300
-consoleHeight = 25
-screenHeight = screenWidth + consoleHeight
-
-# Loop until user quits the game
+# Loop until user quits the game (x out of gameboard)
 
 # create the game board
 board = initBoard (ttt)
@@ -46,5 +42,23 @@ def initBoard(ttt):
     pygame.draw.line (background, (0,0,0), (0,100), (300,100), 2)
     pygame.draw.line (background, (0,0,0), (0,200), (300,200), 2)
 
-    return background # is all back at this point
+    return background # board is all black at this point
 
+
+    # Need a variable representing the display,
+    # and a variable representing the screen surface
+    def showBoard (ttt, board):
+
+    # (re)draw the game board (board) on the screen (ttt)
+        ttt.blit (board, (0,0))
+        pygame.display.flip()
+
+        while (running==1):
+
+            for event in pygame.event.get():
+                if event.type is QUIT:
+                    running = 0
+
+                # update the display
+                showBoard (ttt, board)
+    
