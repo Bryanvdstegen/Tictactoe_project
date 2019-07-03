@@ -9,15 +9,15 @@
 
 # Installation
 
-import pygame
-from pygame import *
-import random
-from math import inf as infinity
-import copy
+    import pygame
+    from pygame import *
+    import random
+    from math import inf as infinity
+    import copy
 
 # Usage
-Play tic-tac-toe using Python with pyGame GUI
-One player or two player
+- Play tic-tac-toe using Python with pyGame GUI
+- One player or two player
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
