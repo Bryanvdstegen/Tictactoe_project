@@ -2,6 +2,51 @@
 
 # Set up and load pygame libraries
 import pygame
+from pygame import *
+import random
+from math import inf as infinity
+import copy
+
+# Set display
+screenWidth = 300
+consoleHeight = 25
+screenHeight = screenWidth + consoleHeight
+
+# Create the game board
+backgroundColor = (0, 0, 0)
+contentColor = (34, 166, 30)
+
+# declare our global variables for the game
+player = -1  # track whose turn it is; X goes first
+grid = [[None, None, None],
+        [None, None, None],
+        [None, None, None]]
+
+winner = None
+bgimg = pygame.image.load('bgimg.png')
+
+# initialize the board and return it as a variable
+# ttt : a properly initialized pyGame display variable
+# set up the background surface
+# this function returns the value of the variable background (which is undefined).
+def initBoard(ttt):
+    background = pygame.Surface(ttt.get_size())
+    background = background.convert()
+    background.fill(backgroundColor)
+    background.blit(bgimg, (0, 0))
+
+    for num in range(2):
+        pygame.draw.line(background, contentColor, (0, ((screenHeight - consoleHeight) / 3) * (num + 1)),
+                         (screenWidth, ((screenHeight - consoleHeight) / 3) * (num + 1)), 2)
+
+        pygame.draw.line(background, contentColor, (((screenWidth) / 3) * (num + 1), 0),
+                         (((screenWidth) / 3) * (num + 1), (screenHeight - consoleHeight)), 2)
+
+    return background # board is all black at this point
+    ## credit to Christian for this 
+(-------------------------------------------------------)
+# Set up and load pygame libraries
+import pygame
 from pygame.locals import *
 
 # Set display
