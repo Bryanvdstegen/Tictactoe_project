@@ -41,7 +41,9 @@ https://repl.it/talk/share/Tic-Tac-Toe/6124
 Title: Developing Tic-Tac-Toe with pyGame
 Authors: Mr. Yergler, Dr. Ceder
 Date: 6 May 2002
+https://github.com/nyergler/teaching-python-with-pygame/blob/master/ttt-tutorial/ttt-tutorial.rst
 
 Title: Game Tutorial: Tic-Tac-Toe (Python)
 Author: ericqweinstein (194)
 Date accessed: 7/2/2019
+https://repl.it/talk/learn/Game-Tutorial-Tic-Tac-Toe-Python/8926
