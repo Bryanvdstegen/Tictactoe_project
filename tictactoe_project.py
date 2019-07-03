@@ -137,7 +137,7 @@ def boardPos(mouseX, mouseY):
 
     return (x, y)
 
-# Define how to win
+# Determine how to win
 def gameWon(board):
     global grid, winner
 
@@ -188,6 +188,7 @@ def evaluate(state):
         score = 0
     return score
 
+# how to win
 def wins(state, player):
     win_state = [
         [state[0][0], state[0][1], state[0][2]],
@@ -262,14 +263,13 @@ def main():
               running = 0
               pygame.display.quit()
 
-            # ***** COMMENT THE TWO LINES BELOW WHEN PLAYING VERSUS COMPUTER *****
+            # ***** FOR DEMO: COMMENT THE TWO LINES BELOW WHEN PLAYING VERSUS COMPUTER *****
             elif event.type is MOUSEBUTTONDOWN:
               clickBoard(board)
-           # ***** UNCOMMENT ALL BELOW WHEN PLAYING VERSUS COMPUTER *****
+            # ***** FOR DEMO: UNCOMMENT ALL BELOW WHEN PLAYING VERSUS COMPUTER *****
             elif event.type is MOUSEBUTTONDOWN and player == -1: 
                clickBoard(board)
             elif player == 1:
-           # ********** ACTIVATE 1 PLAYER MODE  **********
                dumbAI(board) #uncomment to implement dumbAI
 
             gameWon(board)
