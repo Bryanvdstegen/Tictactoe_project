@@ -110,6 +110,10 @@ def drawMove(board, boardRow, boardCol, Piece):
     grid[boardRow][boardCol] = Piece
     # print(str(boardRow) + "_" + str(boardCol) + "_pience: "+ str(Piece))
 
+# Title: Developing Tic-Tac-Toe with pyGame
+# Authors: Mr. Yergler, Dr. Ceder
+# Date: 6 May 2002
+
 # Configuring mouse clicks
 # Determine where the user clicked on the board and draw the X or O
 def boardPos(mouseX, mouseY):
@@ -168,6 +172,11 @@ def gameWon(board):
         pygame.draw.line(board, (250, 0, 0), (250, 50), (50, 250), 2)
 
 # dumbAI - pick a random spot on the board
+
+# Title: Game Tutorial: Tic-Tac-Toe (Python)
+# Author: ericqweinstein (194)
+# Date accessed: 7/2/2019
+
 def dumbAI(board):
     global player, grid
 
