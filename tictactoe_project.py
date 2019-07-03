@@ -24,6 +24,7 @@ grid = [[None, None, None],
 
 winner = None
 bgimg = pygame.image.load('bgimg.png')
+bgimg = pygame.transform.scale(bgimg,(screenHeight, screenWidth)) # Centers picture
 
 # initialize the board and return it as a variable
 # ttt : a properly initialized pyGame display variable
@@ -166,89 +167,114 @@ def gameWon(board):
         winner = grid[0][2]
         pygame.draw.line(board, (250, 0, 0), (250, 50), (50, 250), 2)
 
-(-----------------------------)
-    # Need a variable representing the display,
-    # and a variable representing the screen surface
-def showBoard (ttt, board):
+# dumbAI - pick a random spot on the board
+def dumbAI(board):
+    global player, grid
 
-    # (re)draw the game board (board) on the screen (ttt)
-    ttt.blit (board, (0,0))
-    pygame.display.flip()
+    if (player == 1):
+        print("computer")
+        blanks = checkBlanks(grid)
+        if len(blanks) > 0:
+            move = random.choice(blanks)
+            drawMove(board, move[0], move[1], player)
+    player = -1
 
-while (running==1):
-    for event in pygame.event.get():
-        if event.type is QUIT:
-            running = 0
-            
-        # update the display
-        showBoard (ttt, board)
-
-# Configuring mouse clicks
-# X will go first...
-XO = "X"
-
-# declare an empty grid
-grid =  [ [ None, None, None ],
-          [ None, None, None ],
-          [ None, None, None ] ]
-
-while (running==1):
-
-    for event in pygame.event.get():
-
-        if event.type is QUIT:
-            running = 0
-
-        elif event.type is MOUSEBUTTONDOWN:
-            clickBoard(board)
-
-        #update the display
-            showBoard (ttt, board)
-
-def boardPos (mouseX, mouseY):
-    # determine the row the user clicked
-    if (mouseY < 100):
-        row = 0
-
-    elif (mouseY < 200):
-        row = 1
-
+def evaluate(state):
+    if wins(state, 1):
+        score = 1
+    elif wins(state, -1):
+        score = -1
     else:
-        row = 2
+        score = 0
+    return score
 
-    # determine the column the user clicked
-    if (mouseX < 100):
-        row = 0
+def wins(state, player):
+    win_state = [
+        [state[0][0], state[0][1], state[0][2]],
+        [state[1][0], state[1][1], state[1][2]],
+        [state[2][0], state[2][1], state[2][2]],
 
-    elif (mouseX < 200):
-        row = 1
+        [state[0][0], state[1][0], state[2][0]],
+        [state[0][1], state[1][1], state[2][1]],
+        [state[0][2], state[1][2], state[2][2]],
+        
+        [state[0][0], state[1][1], state[2][2]],
+        [state[2][0], state[1][1], state[0][2]],
+    ]
+    return [player, player, player] in win_state
 
+def minimax(state, depth, currPlayer):
+    if currPlayer == 1:
+        best = [-1, -1, -infinity]
     else:
-        row = 2
+        best = [-1, -1, +infinity]
 
-    #return the row & column
-    return (row, col)
+    if depth == 0 or game_over(state):
+        score = evaluate(state)
+        return [-1, -1, score]
 
-def clickBoard (board):
-    # determine where the user clicked on the board and draw the X or O
-    # tell Python that we want access to the global variables grid & XO
+    for cell in checkBlanks(state):
+        x, y = cell[0], cell[1]
+        state[x][y] = currPlayer
+        score = minimax(state, depth - 1, currPlayer)
+        state[x][y] = 0
+        score[0], score[1] = x, y
 
-    global grid, XO
+        if currPlayer == 1:
+            if score[2] > best[2]:
+                #print("Score:")
+                #print(score)
+                #print("best:")
+                #print(best)
+                best = score # max value
+                #print(best)
+        else:
+            if score[2] < best[2]:
+                best = score # min value
+    #print(best)
+    return best
 
-    (mouseX, mouseY) = pygame.mouse.get_pos()
-    (row, col) = boardPos (mouseX, mouseY)
+def game_over(state):
+    return wins(state, -1) or wins(state, 1)
 
-    # make sure this space isn't used
-    if ((grid[row][col] == "X") or (grid[row][col] == "O")):
+def checkBlanks(board):
+    # should return an array of black cells
+    blanks = []
+    for index, row in enumerate(board):
+        for index2, cell in enumerate(row):
+            if cell == None:
+                blanks.append([index, index2])
+    return blanks
 
-        # this space is in use
-        return
+def main():
+    pygame.init()
+    ttt = pygame.display.set_mode([screenWidth, screenHeight])
+    pygame.display.set_caption('Tic-Tac-Toe')
 
-    # draw an X or O
-    drawMove (board, row, col, XO)
+    global player
+    board = initBoard(ttt)
 
-    # toggle XO to the other player's move
-    if (XO == "X"):
-        XO = "O"
-    else:
-        XO = "X"
+    running = 1
+    while (running == 1):
+        for event in pygame.event.get():
+            if event.type is QUIT:
+              print("exit")
+              running = 0
+              pygame.display.quit()
+
+            # ***** COMMENT THE TWO LINES BELOW WHEN PLAYING VERSUS COMPUTER *****
+            elif event.type is MOUSEBUTTONDOWN:
+              clickBoard(board)
+           # ***** UNCOMMENT ALL BELOW WHEN PLAYING VERSUS COMPUTER *****
+            elif event.type is MOUSEBUTTONDOWN and player == -1: 
+               clickBoard(board)
+            elif player == 1:
+           # ********** ACTIVATE 1 PLAYER MODE  **********
+               dumbAI(board) #uncomment to implement dumbAI
+
+            gameWon(board)
+
+            showBoard(ttt, board)
+
+if __name__ == "__main__":
+    main()
