@@ -92,7 +92,50 @@ def clickBoard(board):
         player = 1
     else:
         player = -1
-(-----------------------------------------------)
+
+def drawMove(board, boardRow, boardCol, Piece):
+    centerX = ((boardRow) * (screenWidth / 3)) + 25
+    centerY = ((boardCol) * ((screenHeight - consoleHeight) / 3)) + 20
+
+    font = pygame.font.Font(None, int((screenWidth / 3)))
+
+    if (Piece == 1):
+        text = font.render("O", 1, contentColor)
+        board.blit(text, (int(centerX), int(centerY)))
+    else:
+        text = font.render("X", 1, contentColor)
+        board.blit(text, (int(centerX), int(centerY)))
+
+    grid[boardRow][boardCol] = Piece
+    # print(str(boardRow) + "_" + str(boardCol) + "_pience: "+ str(Piece))
+
+# Configuring mouse clicks
+# Determine where the user clicked on the board and draw the X or O
+def boardPos(mouseX, mouseY):
+    print(mouseY)
+    if (mouseY < 100):
+        y = 0
+        #print(x)
+    elif (mouseY < 200):
+        y = 1
+        #print(x)
+    else:
+        y = 2
+        #print(x)
+
+    print(mouseX)
+    if (mouseX < 100):
+        x = 0
+        #print(y)
+    elif (mouseX < 200):
+        x = 1
+        #print(y)
+    else:
+        x = 2
+        #print(y)
+
+    return (x, y)
+(-----------------------------)
     # Need a variable representing the display,
     # and a variable representing the screen surface
 def showBoard (ttt, board):
