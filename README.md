@@ -1,4 +1,4 @@
-# Tic_tac_toe_project
+# TicTacToe Project
 
 # Prerequisites
 
