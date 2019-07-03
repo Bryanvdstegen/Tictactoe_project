@@ -47,24 +47,22 @@ def initBoard(ttt):
 
     # Need a variable representing the display,
     # and a variable representing the screen surface
-    def showBoard (ttt, board):
+def showBoard (ttt, board):
 
     # (re)draw the game board (board) on the screen (ttt)
-        ttt.blit (board, (0,0))
-        pygame.display.flip()
+    ttt.blit (board, (0,0))
+    pygame.display.flip()
 
-        while (running==1):
+while (running==1):
+    for event in pygame.event.get():
+        if event.type is QUIT:
+            running = 0
+            
+        # update the display
+        showBoard (ttt, board)
 
-            for event in pygame.event.get():
-                if event.type is QUIT:
-                    running = 0
-
-                # update the display
-                showBoard (ttt, board)
-    
 # Configuring mouse clicks
 # X will go first...
-
 XO = "X"
 
 # declare an empty grid
@@ -84,3 +82,51 @@ while (running==1):
 
         #update the display
             showBoard (ttt, board)
+
+def boardPos (mouseX, mouseY):
+    # determine the row the user clicked
+    if (mouseY < 100):
+        row = 0
+
+    elif (mouseY < 200):
+        row = 1
+
+    else:
+        row = 2
+
+    # determine the column the user clicked
+    if (mouseX < 100):
+        row = 0
+
+    elif (mouseX < 200):
+        row = 1
+
+    else:
+        row = 2
+
+    #return the row & column
+    return (row, col)
+
+def clickBoard (board):
+    # determine where the user clicked on the board and draw the X or O
+    # tell Python that we want access to the global variables grid & XO
+
+    global grid, XO
+
+    (mouseX, mouseY) = pygame.mouse.get_pos()
+    (row, col) = boardPos (mouseX, mouseY)
+
+    # make sure this space isn't used
+    if ((grid[row][col] == "X") or (grid[row][col] == "O")):
+
+        # this space is in use
+        return
+
+    # draw an X or O
+    drawMove (board, row, col, XO)
+
+    # toggle XO to the other player's move
+    if (XO == "X"):
+        XO = "O"
+    else:
+        XO = "X"
