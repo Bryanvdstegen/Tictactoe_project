@@ -135,6 +135,37 @@ def boardPos(mouseX, mouseY):
         #print(y)
 
     return (x, y)
+
+# Define how to win
+def gameWon(board):
+    global grid, winner
+
+    for x in range(0, 3):
+        if ((grid[0][x] == grid[1][x] == grid[2][x]) and \
+                (grid[0][x] is not None)):
+            winner = grid[0][x]
+            pygame.draw.line(board, (250, 0, 0), (0, (x + 1) * 100 - 50), \
+                             (300, (x + 1) * 100 - 50), 2)
+            break
+
+    for y in range(0, 3):
+        if (grid[y][0] == grid[y][1] == grid[y][2]) and \
+                (grid[y][0] is not None):
+            winner = grid[y][0]
+            pygame.draw.line(board, (250, 0, 0), ((y + 1) * 100 - 50, 0), \
+                             ((y + 1) * 100 - 50, 300), 2)
+            break
+
+    if (grid[0][0] == grid[1][1] == grid[2][2]) and \
+            (grid[0][0] is not None):
+        winner = grid[0][0]
+        pygame.draw.line(board, (250, 0, 0), (50, 50), (250, 250), 2)
+
+    if (grid[2][0] == grid[1][1] == grid[0][2]) and \
+            (grid[0][2] is not None):
+        winner = grid[0][2]
+        pygame.draw.line(board, (250, 0, 0), (250, 50), (50, 250), 2)
+
 (-----------------------------)
     # Need a variable representing the display,
     # and a variable representing the screen surface
