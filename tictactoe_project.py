@@ -272,14 +272,14 @@ def main():
               running = 0
               pygame.display.quit()
 
-            # ***** FOR DEMO: COMMENT THE TWO LINES BELOW WHEN PLAYING VERSUS COMPUTER *****
             elif event.type is MOUSEBUTTONDOWN:
               clickBoard(board)
-            # ***** FOR DEMO: UNCOMMENT ALL BELOW WHEN PLAYING VERSUS COMPUTER *****
-            elif event.type is MOUSEBUTTONDOWN and player == -1: 
-               clickBoard(board)
-            elif player == 1:
-               dumbAI(board) #uncomment to implement dumbAI
+
+            # # ***** FOR SOLO PLAY: UNCOMMENT BELOW WHEN PLAYING VERSUS COMPUTER *****
+            # elif event.type is MOUSEBUTTONDOWN and player == -1: 
+            #    clickBoard(board)
+            # elif player == 1:
+            #    dumbAI(board)
 
             gameWon(board)
 
