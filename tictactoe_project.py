@@ -44,8 +44,7 @@ def initBoard(ttt):
                          (((screenWidth) / 3) * (num + 1), (screenHeight - consoleHeight)), 2)
 
     return background # board is all black at this point
-    ## credit to Christian for this
-
+    #
 
 def drawStatus(board):
     global player, winner
@@ -276,10 +275,10 @@ def main():
               clickBoard(board)
 
             # # ***** FOR SOLO PLAY: UNCOMMENT BELOW WHEN PLAYING VERSUS COMPUTER *****
-            elif event.type is MOUSEBUTTONDOWN and player == -1: 
-               clickBoard(board)
-            elif player == 1:
-               dumbAI(board)
+            # elif event.type is MOUSEBUTTONDOWN and player == -1: 
+            #    clickBoard(board)
+            # elif player == 1:
+            #    dumbAI(board)
 
             gameWon(board)
 
